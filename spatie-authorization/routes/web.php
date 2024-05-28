@@ -2,14 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::view('/', 'layouts.guest')->name('welcome');
 
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'role:user'])
     ->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__.'/auth.php';
+Route::view('admin', 'admin.index')
+    ->middleware(['auth', 'role:admin'])
+    ->name('admin.index');
+
+require __DIR__ . '/auth.php';
