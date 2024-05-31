@@ -9,13 +9,10 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="/"
-                            class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                            aria-current="page">Home</a>
-                        <a href="/blog"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Blog</a>
-                        <a href="/contact"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact</a>
+                        {{-- create attribute called active and if you add ":" before the name of attribute it will read boolean inside this symbol " " --}}
+                        <x-nav-link href="/" :active="request()->is('/')"> Home</x-nav-link>
+                        <x-nav-link href="/blog" :active="request()->is('blog')"> Blog</x-nav-link>
+                        <x-nav-link href="/contact" :active="request()->is('contact')"> Contact</x-nav-link>
                     </div>
                 </div>
             </div>
@@ -35,11 +32,9 @@
                             </button>
                         </div>
                         <div x-show="isOpen" x-transition:enter="transition ease-out duration-100 transform"
-                            x-transition:enter-start="opacity-0 scale-95"
-                            x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
                             x-transition:leave="transition ease-in duration-75 transform"
-                            x-transition:leave-start="opacity-100 scale-100"
-                            x-transition:leave-end="opacity-0 scale-95"
+                            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                             class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                             tabindex="-1">
