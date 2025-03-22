@@ -7,13 +7,24 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Chapter 1 - Database
+# Chapter 1 - Database
 Chapter 1 ini akan mempelajari bagaimana cara mengkonfigurasi sebuah database, seperti membuat migration, melakukan migration, mengatur db, dan lain-lain.
 
-### Migration
+# Daftar Isi
+
+1. [Migration](#migration)
+    - [Membuat Migration](#membuat-migration)
+    - [Menjalankan Migration](#menjalankan-migration)
+    - [Metode Utama Migration](#metode-utama-migration)
+    - [Example](#example)
+2. [Faker](#faker)
+3. [Menambahkan Data](#menambahkan-data)
+4. [Mengupdate Data](#mengupdate-data)
+5. [Kesimpulan](#kesimpulan)
+
+## Migration
 Migration di Laravel adalah fitur yang memungkinkan Anda untuk mengelola skema basis data dengan cara yang terstruktur dan mudah. Dengan menggunakan migration, Anda dapat membuat, mengubah, dan menghapus tabel dalam basis data menggunakan kode PHP, bukan dengan perintah SQL secara langsung. Ini sangat berguna untuk kolaborasi tim dan menjaga konsistensi skema basis data.
-#### Konsep Dasar Migration:
-1. Menjalankan Migration:
+### Membuat Migration
 ```
 php artisan make:migration create_examples_table
 ```
@@ -22,6 +33,7 @@ Command diatas merupakan cara membuat sebuah file migration baru yang terletak p
     - database
         - migrations
 Saat membuat migration, pastikan penamaannya bersifat plural atau jamak. Contoh students, products, days. 
+### Menjalankan Migration
 ```
 php artisan migrate
 ```
@@ -36,6 +48,8 @@ php artisan migrate:status
 ```
 Command ini untuk melihat status migration yang telah dijalankan 
 
+### Metode Utama Migration
+
 Setiap migration memiliki dua metode utama, yaitu:
 ```
 up()
@@ -46,7 +60,7 @@ down()
 ```
 Digunakan untuk membatalkan perubahan yang dilakukan di metode up(), seperti menghapus tabel atau kolom.
 
-### contoh
+### Example
 ```
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -71,6 +85,8 @@ class CreateUsersTable extends Migration
 }
 ```
 Untuk migration lebih lengkapnya dapat membaca dokumentasi [ini](https://laravel.com/docs/12.x/migrations#tables)
+
+## Faker
 
 ## License
 
