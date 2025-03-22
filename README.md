@@ -17,13 +17,19 @@ Chapter 1 ini akan mempelajari bagaimana cara mengkonfigurasi sebuah database, s
     - [Menjalankan Migration](#menjalankan-migration)
     - [Metode Utama Migration](#metode-utama-migration)
     - [Example](#example)
-2. [Faker](#faker)
+2. [Seeding](#seeding)
+    - [Konsep Dasar Seeding](#konsep-dasar-seeding)
+    - [Membuat Seeding](#membuat-seeding)
+    - [Example](#example-1)
 3. [Menambahkan Data](#menambahkan-data)
 4. [Mengupdate Data](#mengupdate-data)
 5. [Kesimpulan](#kesimpulan)
 
 ## Migration
+<div style="text-align:justify">
 Migration di Laravel adalah fitur yang memungkinkan Anda untuk mengelola skema basis data dengan cara yang terstruktur dan mudah. Dengan menggunakan migration, Anda dapat membuat, mengubah, dan menghapus tabel dalam basis data menggunakan kode PHP, bukan dengan perintah SQL secara langsung. Ini sangat berguna untuk kolaborasi tim dan menjaga konsistensi skema basis data.
+</div>
+
 ### Membuat Migration
 ```
 php artisan make:migration create_examples_table
@@ -86,7 +92,107 @@ class CreateUsersTable extends Migration
 ```
 Untuk migration lebih lengkapnya dapat membaca dokumentasi [ini](https://laravel.com/docs/12.x/migrations#tables)
 
-## Faker
+## Seeding
+<div style="text-align: justify">
+Laravel seeding adalah fitur yang memungkinkan Anda untuk mengisi basis data dengan data awal (dummy data) secara otomatis. Ini sangat berguna untuk pengujian dan pengembangan, di mana Anda mungkin memerlukan data untuk menguji aplikasi Anda tanpa harus memasukkan data secara manual.
+</div>
+
+### Konsep Dasar Seeding
+1. Tujuan:
+    - Memudahkan pengembang untuk mengisi basis data dengan data yang diperlukan untuk pengujian.
+    - Menghindari pengulangan proses pengisian data secara manual
+
+2. Seeding vs Migration:
+    - Migration: Digunakan untuk membuat dan mengubah struktur tabel dalam basis data.
+    - Seeding: Digunakan untuk mengisi tabel dengan data.
+
+### Membuat Seeding
+```
+php artisan make:seeder ExampleNamesTableSeeder
+```
+<div style="text-align:justify">
+Command diatas bertujuan untuk membuat sebuah file seeder berdasarkan nama yang sudah ditentukan, untuk penamaan memiliki aturan yang sama seperti migration yaitu bersifat plural atau jamak. File seeder baru terletak pada:
+</div>
+
+- Laravel-Tutorial
+    - database
+        - seeders
+
+### Menjalankan Seeding
+```
+php artisan db:seed --class=ExampleNamesTableSeeder
+```
+Command tersebut bertujuan untuk menjalankan seeder berdasarkan file tertentu
+
+```
+php artisan db:seed
+```
+Lalu untuk command ini bertujuan menjalankan semua seeder yang terdaftar di ```DatabaseSeeder.php```
+
+### Example
+#### ```ExampleNamesTableSeeder.php```
+```
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ExampleNamesTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('products')->insert([
+            [
+                'name' => 'Product 1',
+                'price' => 100,
+                'description' => 'Description for Product 1',
+            ],
+            [
+                'name' => 'Product 2',
+                'price' => 200,
+                'description' => 'Description for Product 2',
+            ],
+            [
+                'name' => 'Product 3',
+                'price' => 300,
+                'description' => 'Description for Product 3',
+            ],
+        ]);
+    }
+}
+```
+
+#### ```DatabaseSeeder.php```
+```
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        // User::factory(10)->create();
+
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+
+        $this->call(ProductsSeeder::class);
+    }
+}
+```
+
 
 ## License
 
