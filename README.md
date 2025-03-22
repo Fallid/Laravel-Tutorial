@@ -21,6 +21,7 @@ Command diatas merupakan cara membuat sebuah file migration baru yang terletak p
 - Laravel-Tutorial
     - database
         - migrations
+Saat membuat migration, pastikan penamaannya bersifat plural atau jamak. Contoh students, products, days. 
 ```
 php artisan migrate
 ```
@@ -69,7 +70,7 @@ class CreateUsersTable extends Migration
     }
 }
 ```
-Untuk migration lebih lengkapnya dapat membaca dokumentasi <a href="[text](https://laravel.com/docs/12.x/migrations#tables)"> ini</a>.
+Untuk migration lebih lengkapnya dapat membaca dokumentasi [ini](https://laravel.com/docs/12.x/migrations#tables)
 
 ## License
 
