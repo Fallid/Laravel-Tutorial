@@ -21,7 +21,7 @@ Chapter 1 ini akan mempelajari bagaimana cara mengkonfigurasi sebuah database, s
     - [Konsep Dasar Seeding](#konsep-dasar-seeding)
     - [Membuat Seeding](#membuat-seeding)
     - [Example](#example-1)
-3. [Menambahkan Data](#menambahkan-data)
+3. [Faker](#faker)
 4. [Mengupdate Data](#mengupdate-data)
 5. [Kesimpulan](#kesimpulan)
 
@@ -193,6 +193,57 @@ class DatabaseSeeder extends Seeder
 }
 ```
 
+## Faker
+<div style="text-align: justify">
+Laravel Faker adalah library yang digunakan untuk menghasilkan data palsu (dummy data) secara otomatis. Ini sangat berguna dalam pengembangan aplikasi, terutama saat Anda perlu mengisi basis data dengan data yang realistis untuk pengujian atau pengembangan. Dengan Faker, Anda dapat menghasilkan berbagai jenis data, seperti nama, alamat, nomor telepon, dan banyak lagi.</div>
+
+### Konsep Dasar Faker
+1. Beragam Tipe Data:
+    -   Faker Dapat menghasilkan berbagai tipe data, termasuk teks, angka, tanggal, email, dan lain-lain.
+2. Kustomisasi:
+    - Dapat menyesuaikan data yang dihasilkan sesuai dengan kebutuhan aplikasi yang dikembangkan.
+3. Integrasi Dengan Seeder:
+    - Faker sering digunakan bersama dengan seeder untuk mengisi basis data dengan data palsu.
+
+### Installing
+Untuk dapat menginstall Laravel Faker, perlu dipastikan bahwa versi php yang digunakan adalah PHP >= 7.4
+```
+composer require fakerphp/faker
+```
+Command diatas merupakan command untuk melakukan install _Laravel Faker_ menggunakan composer.
+
+### Membuat Faker
+#### 1. Membuat seeder
+- Tutorial membuat seedar dapat dilihat pada [Membuat Seeder](#membuat-seeding).
+#### 2. Implementasi Faker
+```
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
+
+class ExampleFakerSeeder extends Seeder
+{
+    public function run()
+    {
+        $faker = Faker::create('id_ID'); //Menggenerate data palsu dengan standar bahasa indonesia
+
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('products')->insert([
+                'names' => $faker->word,
+                'stocks' => $faker->randomNumber(2), // Menghasilkan 2 digit angka.
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+    }
+}
+```
+#### 3. Menjalankan Seeder
+- Tutorial menjalankan seeder dapat dilihat pada [Menjalankan Seeding](#menjalankan-seeding).
 
 ## License
 
