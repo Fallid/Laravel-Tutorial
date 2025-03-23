@@ -16,7 +16,9 @@ Mempelajari pengertian, konsep dasar, penggunaan, dan contoh terhadap model, con
     - [Membuat Model](#membuat-model)
     - [Example](#example)
 2. [Controller](#controller)
-    - [Konsep Dasar Controller]()
+    - [Konsep Dasar Controller](#konsep-dasar-controller)
+    - [Membuat Controller](#membuat-controller)
+    - [Example]()
 
 ## Model
 <div style='text-align:justify'>
@@ -54,6 +56,54 @@ class Product extends Model
     protected $fillable = ['name', 'price', 'description'];
 }
 ```
+
+## Controller
+<div style="text-align:justify">Controller di Laravel adalah komponen yang bertanggung jawab untuk menangani logika aplikasi. Mereka berfungsi sebagai penghubung antara model dan tampilan (view). Controller mengelola permintaan HTTP, memproses data, dan mengembalikan respons yang sesuai. Dengan menggunakan controller, Anda dapat memisahkan logika aplikasi dari logika tampilan, sehingga membuat kode lebih terstruktur dan mudah dikelola.</div>
+
+### Konsep Dasar Controller
+1. ```Organisasi Kode```: Controller membantu mengoraganisasi kode dengan memisahkan logika aplikasi dari view (tampilan).
+2. ```Routing```: Controller dapat digunakan untuk menangani rute yang lebih kompleks dan mengelola beberapa metode dalam satu kelas.
+3. ```Depedency Injection```: Laravel mendukung depedency Injection, yang memungkinkan untuk menyuntikkan depedency ke dalam controller.
+4. ```Resource Controller```: Mengelola CRUD (Create, Read, Update, Delete) secara otomatis.
+5. ```Single Action Controller```: Mengelola satu aksi atau metode.
+
+### Membuat Controller
+```
+php artisan make:controller ExampleNameController
+```
+Command tersebut bertujuan untuk membuat file controller baru yang terletak pada:
+- Laravel-Tutorial
+    - app
+        - Http
+            - Controllers
+
+Untuk penamaan file controller sama dengan model, yaitu bersifat singular atau tunggal.
+
+### Example
+```
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+
+class ExampleNameController extends Controller
+{
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+        ]);
+
+        Product::create($request->all());
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+    }
+}
+```
+
+
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
