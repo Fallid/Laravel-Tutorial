@@ -23,6 +23,7 @@ Mempelajari pengertian, konsep dasar, penggunaan, dan contoh terhadap model, con
     - [Konsep Dasar View](#konsep-dasar-view)
     - [Membuat View](#membuat-view)
     - [Example](#example-2)
+4. [Routing]()
 
 ## Model
 <div style='text-align:justify'>
@@ -143,6 +144,63 @@ Command tersebut befungsi untuk membuat file view baru dengan format filenya ada
     </ul>
 </body>
 </html>
+```
+
+## Routing
+<div style='text-align:justify'>Routing di Laravel adalah cara untuk mendefinisikan jalur (URL) yang dapat diakses oleh aplikasi Anda. Routing menghubungkan URL yang diminta oleh pengguna dengan fungsi atau controller yang akan menangani permintaan tersebut. Dengan routing, Anda dapat mengatur bagaimana aplikasi Anda merespons permintaan HTTP (GET, POST, PUT, DELETE, dll.). Dokumentasi lengkap tentang Routing dapat dilihat pada <a href='https://laravel.com/docs/12.x/routing'>link ini</a>.
+</div>
+
+### Konsep Dasar Routing
+1. ```Definisi Route Method```: Dapat mendefinisikan route untuk berbagai metode HTTP seperti ```GET, HEAD, POST, PUT, PATCH, DEL```.
+2. ```Paramater Dinamis```: Mendukung paramater dinamis dalam URL, memungkinkan untuk menangkap data dari URL.
+3. ```Middleware```: Untuk menangani autentikasi, logging, dan hal lainnya.
+4. ```Grouping```: Dapat mengelompokkan rute untuk mengatur dan menerapkan middleware secara bersamaan.
+
+### Struktur Dasar Routing
+Terdapat 3 jenis file API yang terletak pada:
+- Laravel-Tutorial
+    - routes
+        - ```api.php```
+        - ```console.php```
+        - ```web.php```
+
+3 jenis file tersebut memiliki fungsinya masing-masing, diantaranya:
+- ```api.php```: digunakan untuk mendefinisikan routing yang berhubungan dengan API. Rute di sini biasanya digunakan untuk aplikasi yang berkomunikasi dengan frontend atau aplikasi lain melalui API.  
+    Rute di sini **menggunakan middleware** api, yang **tidak menyertakan session** state dan CSRF protection, sehingga lebih ringan dan cepat untuk permintaan API.
+
+- ```console.php```: File ini digunakan untuk mendefinisikan rute yang berhubungan dengan perintah Artisan. Ini memungkinkan Anda untuk menambahkan perintah kustom yang dapat dijalankan melalui command line.
+    Rute di sini **tidak berhubungan** dengan HTTP, tetapi lebih kepada perintah yang dapat **dieksekusi di terminal**.
+
+- ```web.php```: File ini digunakan untuk mendefinisikan routing yang berhubungan dengan aplikasi web. Ini mencakup semua rute yang akan diakses melalui browser.
+    Rute di sini biasanya menggunakan middleware web, yang menyediakan fitur seperti session state, CSRF protection, dan cookie encryption.
+
+### Example
+- api.php
+```
+Route::get('/products', 'ProductController@index');
+Route::post('/products', 'ProductController@store');
+```
+
+- console.php
+```
+Artisan::command('greet {name}', function ($name) {
+    $this->info("Hello, $name");
+});
+```
+
+- web.php
+```
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
+
+// atau jika menggunakan controller
+
+Route::get('product/{id}', [ProductController::class, 'show']); //show merupakan method yang ada pada controller
 ```
 
 ## License
