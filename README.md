@@ -18,7 +18,11 @@ Mempelajari pengertian, konsep dasar, penggunaan, dan contoh terhadap model, con
 2. [Controller](#controller)
     - [Konsep Dasar Controller](#konsep-dasar-controller)
     - [Membuat Controller](#membuat-controller)
-    - [Example]()
+    - [Example](#example-1)
+3. [View](#view)
+    - [Konsep Dasar View](#konsep-dasar-view)
+    - [Membuat View](#membuat-view)
+    - [Example](#example-2)
 
 ## Model
 <div style='text-align:justify'>
@@ -102,7 +106,44 @@ class ExampleNameController extends Controller
 }
 ```
 
+## View
+<div style="text-align:justify">
+View di Laravel adalah komponen yang bertanggung jawab untuk menampilkan data kepada pengguna. View biasanya berisi HTML dan dapat menggunakan Blade, templating engine yang disediakan oleh Laravel, untuk membuat tampilan yang dinamis dan interaktif. Dengan menggunakan view, Anda dapat memisahkan logika presentasi dari logika aplikasi, sehingga membuat kode lebih terstruktur dan mudah dikelola. Dokumentasi lengkap tentang View dapat dilihat pada <a href="https://laravel.com/docs/12.x/views#main-content">link ini</a>.
+</div>
 
+### Konsep Dasar View
+1. ```Blade Templating Engine```: Memungkinkan untuk menggunakan sintaks yang bersih dan sederhana untuk membuat tampilan, didasari dengan HTML serta memungkinkan untuk menggunakan sintaks PHP.
+2. ```Penggunaan Layout```: Dapat membuat layout dasar yang bisa digunakan kembali di berbagai view, sehingga menghindari pengulangan kode.
+3. ```Pengiriman Data ke View```: Dapat mengirimkan data dari controller ke view menggunakan memthod ```view()```.
+
+### Membuat view
+```
+php artisan make:view ExampleNameView
+```
+Command tersebut befungsi untuk membuat file view baru dengan format filenya adalah ```blade (ExampleNameView.blade.php)```, serta terletak pada:
+- Laravel-Tutorial
+    - resources
+        - views
+
+### Example
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+    <ul>
+        @foreach ($products as $product)
+            <li>{{ $product['name'] }} - ${{ $product['price'] }}</li>
+        @endforeach
+    </ul>
+</body>
+</html>
+```
 
 ## License
 
