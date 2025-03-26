@@ -7,59 +7,91 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Chapter 3 - Relations
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<div style='text-align:justify'>
+Mengidentifikasi dan memahami berbagai jenis relasi yang tersedia, termasuk <span style='font-weight:bold'> One to One, One to Many, Many to Many, Has Many Through, dan Polymorphic Relations</span>. Selanjutnya, mempelajari cara mengimplementasikan relasi ini dalam model Laravel, termasuk penggunaan metode yang disediakan oleh Eloquent ORM untuk memudahkan pengelolaan data.</div> <br>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# Daftar Isi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1.  [One to One Relation](#one-to-one-relation)
+    -   [Membuat One to One Relationship](#membuat-one-to-one-relationship)
+    -   [Implementasi One to One Relationship](#implementasi-one-to-one-relationship)
+2. [One to Many Relation]()
 
-## Learning Laravel
+## One to One Relation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<div style='text-align:justify'>
+One-to-One Relationship adalah jenis relasi di mana satu entitas berhubungan dengan tepat satu entitas lainnya. Dalam konteks basis data, ini berarti <span style='font-weight:bold'>satu baris dalam satu tabel berhubungan dengan satu baris dalam tabel lain</span>. Dokumentasi lengkap dapat dilihat pada <a href='https://laravel.com/docs/12.x/eloquent-relationships#one-to-one'>link ini</a>.</div>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Membuat One to One Relationship
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Membuat dua Migration Database.
 
-## Laravel Sponsors
+```
+php artisan make:migration ExampleCreateTable
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Pada saat membuat salah satu table pastikan untuk membuat `primary key` dan `foreign key`.
 
-### Premium Partners
+```
+ Schema::create('contacts', function (Blueprint $table) {
+            $table->id();
+            $table->string('email');
+            $table->string('phone');
+            $table->foreignId('employee_id')->constrained('employees');
+            $table->timestamps();
+        });
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. Membuat model pada tabel-tabel yang sudah dibuat.
 
-## Contributing
+```
+php artisan make:model ExampleModel
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Implementasi One to One Relationship
 
-## Code of Conduct
+1. Menggunakan method `hasOne` pada tabel utama untuk dapat mengakses data pada tabel lainnya.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+<?php
 
-## Security Vulnerabilities
+namespace App\Models;
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Employee extends Model
+{
+    use HasFactory;
+    public function contact(){
+        return $this->hasOne(Contact::class);
+    }
+}
+```
+
+Dengan begitu tabel `Employee` dapat mengakses data pada tabel `Contact`.
+
+2. Menggunankan `belongsTo` pada tabel yang direlasikan (contact) agar tabel `contact` dapat mengakses data pada tabel `Employee`
+
+```
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Contact extends Model
+{
+    use HasFactory;
+
+    public function employee(){
+        return $this->belongsTo(Employee::class);
+    }
+}
+```
 
 ## License
 
