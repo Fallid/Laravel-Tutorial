@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(EmployeesFakeSeeder::class);
         $this->call(ContactsFakeSeeder::class);
+        $this->call(StoresFakeSeeder::class);
+        $this->call(ProductsFakeSeeder::class);
     }
 }

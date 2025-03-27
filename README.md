@@ -93,6 +93,64 @@ class Contact extends Model
 }
 ```
 
+## One to Many Relation
+<div style='text-align:justify'>
+One-to-Many Relationship adalah jenis relasi di mana satu entitas berhubungan dengan lebih dari satu entitas lainnya. Dalam konteks basis data, ini berarti <span style='font-weight:bold'>satu baris dalam satu tabel berhubungan dengan lebih dari satu baris dalam tabel lain</span>. Dokumentasi lengkap dapat dilihat pada <a href='https://laravel.com/docs/12.x/eloquent-relationships#one-to-many'>link ini</a> dan dokumentasi tentang Eloquent ORM dapat dilihat pada <a href='https://laravel.com/docs/12.x/eloquent'>link ini</a>.</div>
+
+### Membuat One to Many Relationship
+Cara pembuatan ```One to Many Relation``` memiliki cara yang sama dengan [One to One Relation](#membuat-one-to-one-relationship).
+
+### Implementasi One to Many Relationship
+1. Menggunakan method ```hasMany()``` pada tabel utama agar dapat melakukan relasi ke banyak data.
+```
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Store extends Model
+{
+    use HasFactory;
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
+}
+```
+
+2. Menggunakan method ```belongsTo()``` sebagai invers agar tabel relasi dapat mengakses balik data tabel utama.
+```
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    use HasFactory;
+    public function store(){
+        return $this->belongsTo(Store::class);
+    }
+}
+```
+3. Membuat ```Eloquent ORM``` pada controller berguna untuk melakukan query pada data.
+```
+class StoreController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $stores = Store::with('products')->get();
+        return view('store', ['stores' => $stores]);
+    }
+}
+```
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

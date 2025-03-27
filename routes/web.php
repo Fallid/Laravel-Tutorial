@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -9,3 +11,6 @@ Route::get('/', function () {
 
 Route::get('employee', [EmployeeController::class, 'index']);
 Route::get('employee/{id}', [EmployeeController::class, 'show']);
+
+Route::get('products',[ProductController::class, 'index']);
+Route::get('stores',[StoreController::class, 'index']);
