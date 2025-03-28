@@ -11,4 +11,8 @@ class Employee extends Model
     public function contact(){
         return $this->hasOne(Contact::class);
     }
+
+    public function activities(){
+        return $this->belongsToMany(Activity::class);
+    }
 }

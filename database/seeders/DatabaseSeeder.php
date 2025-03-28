@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactsFakeSeeder::class);
         $this->call(StoresFakeSeeder::class);
         $this->call(ProductsFakeSeeder::class);
+        $this->call(ActivityFakeSeeder::class);
+        $this->call(ActivityEmployeeFakeSeeder::class);
     }
 }
