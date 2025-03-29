@@ -15,7 +15,7 @@ class StoresFakeSeeder extends Seeder
     public function run(): void
     {
         $fakeStore = Faker::create('id_ID');
-        for ($i=0; $i < 1; $i++) {
+        for ($i=0; $i < 3; $i++) {
             DB::table('stores')->insert([
                 'name_store' => $fakeStore->domainName,
                 'address' => $fakeStore->address,

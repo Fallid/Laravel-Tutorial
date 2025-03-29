@@ -9,22 +9,34 @@
 </head>
 
 <body>
-    <h1>Contact Person</h1>
-    @if ($show_all == true)
-        @foreach ($contact_all as $item)
-            <h4> {{ $item->id }}. {{ $item->employee->name }} <br><span style="font-weight:normal">Email:
-                    {{ $item->email }}</span> <br> <span style="font-weight:normal">Phone Number: {{ $item->phone }}
-                </span> </h4>
-        @endforeach
-        {{-- <h4>{{ $contact_all }}</h4> --}}
-    @else
-        <h4>Name : <span style="font-weight:normal">{{ $contact->employee->name }}</span></h4>
-        <h4>Devision : <span style="font-weight:normal">{{ $contact->employee->division }}</span></h4>
-        <h4>Position : <span style="font-weight:normal">{{ $contact->employee->position }}</span></h4>
-        <h4>Hire Date : <span style="font-weight:normal">{{ $contact->employee->created_at }}</span></h4>
-        <h4>Email : <span style="font-weight:normal">{{ $contact->email }}</span></h4>
-        <h4>Phone Number: <span style="font-weight:normal">{{ $contact->phone }}</span></h4>
-    @endif
+    <h1>List of Emplyee</h1>
+    <table border="1px">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Division</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($contacts as $contact)
+                <tr>
+                    <td> <a href="{{ route('employee-detail', $contact->id) }}">{{ $contact->employee->name }}</a>
+                    </td>
+                    <td>{{ $contact->email }}</td>
+                    <td>{{ $contact->employee->division }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+    {{-- Method yang bisa digunakan untuk pagination --}}
+    <p>Current Page : {{ $employees->currentPage() }}</p>
+    <p>Total Data : {{ $employees->total() }}</p>
+    <p>Data per Page: {{ $employees->perPage() }}</p>
+    <a href="{{ route('employee-create') }}">Create new employee</a>
+
+    {{ $employees->links('pagination::simple-tailwind') }}
+
 </body>
 
 </html>

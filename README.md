@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# Chapter 3 - Relations
+# Chapter 4 - Create, Read, Update, Delete
 
 <div style='text-align:justify'>
 Mengidentifikasi dan memahami berbagai jenis relasi yang tersedia, termasuk <span style='font-weight:bold'> One to One, One to Many, Many to Many, Has Many Through, dan Polymorphic Relations</span>. Selanjutnya, mempelajari cara mengimplementasikan relasi ini dalam model Laravel, termasuk penggunaan metode yang disediakan oleh Eloquent ORM untuk memudahkan pengelolaan data.</div> <br>

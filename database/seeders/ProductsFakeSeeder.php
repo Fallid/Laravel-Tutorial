@@ -20,7 +20,7 @@ class ProductsFakeSeeder extends Seeder
                 'name' => $fakeProduct->userName,
                 'stock' => $fakeProduct->randomNumber(2),
                 'description' => $fakeProduct->text(100),
-                'store_id' => 2,
+                'store_id' => $fakeProduct->numberBetween(1,3),
                 'created_at' => $fakeProduct->dateTime,
                 'updated_at' => $fakeProduct->dateTime,
             ]);

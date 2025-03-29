@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'division',
+        'position'
+    ];
     public function contact(){
         return $this->hasOne(Contact::class);
     }

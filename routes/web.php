@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-Route::get('employee', [EmployeeController::class, 'index']);
-Route::get('employee/{id}', [EmployeeController::class, 'show']);
+Route::get('employee', [EmployeeController::class, 'index'])->name('employees');
+Route::get('employee/detail/{id}', [EmployeeController::class, 'show'])->name('employee-detail');
+Route::get('employee/create', [EmployeeController::class, 'create'])->name('employee-create');
+Route::post('employee/create', [EmployeeController::class, 'store'])->name('employee-store');
 
 Route::get('products',[ProductController::class, 'index']);
 Route::get('stores',[StoreController::class, 'index']);

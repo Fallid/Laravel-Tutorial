@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class EmployeeController extends Controller
 {
@@ -12,8 +14,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $contact = Contact::all();
-        return view('employee', ['contact_all'=>$contact, 'show_all'=> true]);
+        $contacts = Contact::orderBy('created_at', 'desc')->paginate(10); //this is ORM of Pagination
+        $employees = Employee::paginate(10);
+        return view('employee', ['contacts'=>$contacts, 'employees' => $employees ,'show_all'=> true]);
     }
 
     /**
@@ -21,7 +24,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('employee_create', );
     }
 
     /**
@@ -29,7 +32,27 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'max:255'],
+            'division' => ['required'],
+            'position' => ['required'],
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'numeric']
+        ]);
+
+        $new_employee = Employee::create([
+            'name' => $request->name,
+            'division' => $request->division,
+            'position' => $request->position
+        ]);
+        $employeeId = $new_employee->id;
+        Contact::create([
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'employee_id' => $employeeId
+        ]);
+
+        return redirect('employee');
     }
 
     /**
@@ -38,7 +61,7 @@ class EmployeeController extends Controller
     public function show(string $id)
     {
         $contact = Contact::find($id);
-        return view('employee',['contact' => $contact, 'show_all'=>false]);
+        return view('employee_detail',['contact' => $contact]);
     }
 
     /**

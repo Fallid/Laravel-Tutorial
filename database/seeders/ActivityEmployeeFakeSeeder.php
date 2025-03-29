@@ -15,10 +15,10 @@ class ActivityEmployeeFakeSeeder extends Seeder
     public function run(): void
     {
         $fakeData = Faker::create('id_ID');
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             DB::table('activity_employee')->insert([
                 'activity_id' => $fakeData->numberBetween(1,3),
-                'employee_id' => $fakeData->numberBetween(1,20),
+                'employee_id' => $fakeData->numberBetween(1,10),
                 'created_at' => $fakeData->dateTime,
                 'updated_at' => $fakeData->dateTime
             ]);
