@@ -94,8 +94,10 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Contact $contact)
     {
-        //
+        Employee::findOrFail($contact->employee->id)->delete();
+        // $contact->delete();
+        return Redirect::route('employees');
     }
 }

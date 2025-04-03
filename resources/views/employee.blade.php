@@ -27,7 +27,13 @@
                     <td>{{ $contact->email }}</td>
                     <td>{{ $contact->employee->division }}</td>
                     <td>
-                        <form action="{{ route('employee-edit', $contact) }}" method="get">@csrf <button type="submit">Update</button> </form>
+                        <form action="{{ route('employee-edit', $contact) }}" method="get">@csrf <button
+                                type="submit">Update</button> </form>
+                        <form action="{{ route('employee-delete', $contact) }}" method="post">
+                            @method('delete')
+                            @csrf
+                            <button type="submit">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('stock');
             $table->text('description');
-            $table->foreignId('store_id')->constrained('stores');
+            $table->foreignId('store_id')->nullable()->constrained('stores')->nullOnUpdate()->nullOnDelete();
             $table->timestamps();
         });
     }
