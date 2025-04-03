@@ -14,6 +14,8 @@ Route::get('employee', [EmployeeController::class, 'index'])->name('employees');
 Route::get('employee/detail/{id}', [EmployeeController::class, 'show'])->name('employee-detail');
 Route::get('employee/create', [EmployeeController::class, 'create'])->name('employee-create');
 Route::post('employee/create', [EmployeeController::class, 'store'])->name('employee-store');
+Route::get('employee/edit/{contact}', [EmployeeController::class, 'edit'])->name('employee-edit');
+Route::patch('employee/edit/update/{contact}', [EmployeeController::class, 'update'])->name('employee-update');
 
 Route::get('products',[ProductController::class, 'index']);
 Route::get('stores',[StoreController::class, 'index']);

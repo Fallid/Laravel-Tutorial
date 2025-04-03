@@ -16,7 +16,7 @@ class EmployeeController extends Controller
     {
         $contacts = Contact::orderBy('created_at', 'desc')->paginate(10); //this is ORM of Pagination
         $employees = Employee::paginate(10);
-        return view('employee', ['contacts'=>$contacts, 'employees' => $employees ,'show_all'=> true]);
+        return view('employee', ['contacts' => $contacts, 'employees' => $employees, 'show_all' => true]);
     }
 
     /**
@@ -24,7 +24,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employee_create', );
+        return view('employee_create',);
     }
 
     /**
@@ -61,23 +61,34 @@ class EmployeeController extends Controller
     public function show(string $id)
     {
         $contact = Contact::find($id);
-        return view('employee_detail',['contact' => $contact]);
+        return view('employee_detail', ['contact' => $contact]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Contact $contact)
     {
-        //
+        return view('employee_update', compact('contact'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Contact $contact)
     {
-        //
+        $update_employee = Employee::find($contact->employee->id);
+        $update_employee->update([
+            'name' => $request->name,
+            'division' => $request->division,
+            'position' => $request->position
+        ]);
+        $contact->update([
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'employee_id' => $contact->employee->id
+        ]);
+        return Redirect::route('employees');
     }
 
     /**

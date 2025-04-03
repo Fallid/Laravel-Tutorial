@@ -16,6 +16,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Division</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,9 @@
                     </td>
                     <td>{{ $contact->email }}</td>
                     <td>{{ $contact->employee->division }}</td>
+                    <td>
+                        <form action="{{ route('employee-edit', $contact) }}" method="get">@csrf <button type="submit">Update</button> </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
