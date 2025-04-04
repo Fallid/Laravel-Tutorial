@@ -5,6 +5,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,3 +24,7 @@ Route::get('stores',[StoreController::class, 'index']);
 
 Route::get('activities', [ActivityController::class, 'index']);
 Route::get('activities/{id}', [ActivityController::class,'show']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
