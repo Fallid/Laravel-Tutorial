@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -26,5 +27,8 @@ Route::get('activities', [ActivityController::class, 'index']);
 Route::get('activities/{id}', [ActivityController::class,'show']);
 
 Auth::routes();
+
+Route::get('update/password',[ResetPasswordController::class, 'edit'])->name('user_update_password');
+Route::patch('update/password/store',[ResetPasswordController::class, 'update'])->name('user_store_password');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

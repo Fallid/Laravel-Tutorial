@@ -6,6 +6,7 @@ use App\Models\Contact;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -16,7 +17,8 @@ class EmployeeController extends Controller
     {
         $contacts = Contact::orderBy('created_at', 'desc')->paginate(10); //this is ORM of Pagination
         $employees = Employee::paginate(10);
-        return view('employee', ['contacts' => $contacts, 'employees' => $employees, 'show_all' => true]);
+        $user = Auth::user();
+        return view('employee', ['contacts' => $contacts, 'employees' => $employees, 'show_all' => true, 'user' => $user]);
     }
 
     /**

@@ -9,6 +9,21 @@
 </head>
 
 <body>
+    {{ Auth::check() }}
+    @if (Auth::check())
+        <form action="{{ route('logout') }}" method="post">@csrf
+            <button type="submit">Logout</button>
+        </form>
+        <h1>Welcome {{ $user->name }}</h1>
+        <h3>{{ $user->email }}</h3>
+    @else
+        <form action="{{ route('register') }}" method="get">@csrf
+            <button type="submit"> Register </button>
+        </form>
+        <form action="{{ route('login') }}" method="get">@csrf
+            <button type="submit"> Login </button>
+        </form>
+    @endif
     <h1>List of Emplyee</h1>
     <table border="1px">
         <thead>
