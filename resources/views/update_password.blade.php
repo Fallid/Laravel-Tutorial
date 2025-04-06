@@ -8,6 +8,10 @@
 </head>
 
 <body>
+    <form action="{{ route('home') }}" method="get">
+        @csrf
+        <button type="submit">HOME</button>
+    </form>
     <h1>{{ $user->name }}</h1>
     @if ($errors->any())
         @foreach ($errors->all() as $error)

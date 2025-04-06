@@ -9,8 +9,14 @@
 </head>
 
 <body>
-    {{ Auth::check() }}
+    {{-- {{ Auth::user()->roles }} --}}
     @if (Auth::check())
+        <p>
+            Your Role:
+            @foreach (Auth::user()->roles as $role)
+                <br> {{ $role->role }}
+            @endforeach
+        </p>
         <form action="{{ route('logout') }}" method="post">@csrf
             <button type="submit">Logout</button>
         </form>
