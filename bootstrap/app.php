@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\LocaleMiddleware;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -12,6 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->web(append: [LocaleMiddleware::class]);
+
         /** 2 ways to assign middleware stack
          * first way */
         $middleware->alias([

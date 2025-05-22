@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
@@ -12,12 +13,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-
-
 Route::middleware(['role:admin,member'])->group(function () {
     Route::get('employee', [EmployeeController::class, 'index'])->name('employees');
     Route::get('employee/detail/{id}', [EmployeeController::class, 'show'])->name('employee-detail');
-
 
     Route::get('products', [ProductController::class, 'index']);
     Route::get('stores', [StoreController::class, 'index']);
@@ -41,5 +39,6 @@ Route::middleware(['role:admin'])->group(function () {
 
 Auth::routes();
 
-Route::get('update/password', [ResetPasswordController::class, 'edit'])->name('user_update_password');
-Route::patch('update/password/store', [ResetPasswordController::class, 'update'])->name('user_store_password');
+Route::get('language/{locale}', [LocaleController::class, 'set_locale'])->name('set_locale');
+
+

@@ -9,35 +9,47 @@
 </head>
 
 <body>
-    {{-- {{ Auth::user()->roles }} --}}
+    <p>
+        {{ __('Language') }}: {{ App::getLocale() }}
+    </p>
+    <form action="{{ route('set_locale', 'en') }}" method="get">
+        <button type="submit">
+            {{ __('English') }}
+        </button>
+    </form>
+    <form action="{{ route('set_locale', 'id') }}" method="get">
+        <button type="submit">
+            {{ __('Indonesian') }}
+        </button>
+    </form>
     @if (Auth::check())
         <p>
-            Your Role:
+            {{ __('Your Role') }}:
             @foreach (Auth::user()->roles as $role)
                 <br> {{ $role->role }}
             @endforeach
         </p>
         <form action="{{ route('logout') }}" method="post">@csrf
-            <button type="submit">Logout</button>
+            <button type="submit">{{ __('Logout') }}</button>
         </form>
-        <h1>Welcome {{ $user->name }}</h1>
+        <h1>{{ __('Welcome') }} {{ $user->name }}</h1>
         <h3>{{ $user->email }}</h3>
     @else
         <form action="{{ route('register') }}" method="get">@csrf
-            <button type="submit"> Register </button>
+            <button type="submit"> {{ __('Register') }} </button>
         </form>
         <form action="{{ route('login') }}" method="get">@csrf
-            <button type="submit"> Login </button>
+            <button type="submit"> {{ __('Login') }} </button>
         </form>
     @endif
-    <h1>List of Emplyee</h1>
+    <h1>{{ __('List of Emplyee') }}</h1>
     <table border="1px">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Division</th>
-                <th>Action</th>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Email') }}</th>
+                <th>{{ __('Division') }}</th>
+                <th>{{ __('Action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -49,11 +61,11 @@
                     <td>{{ $contact->employee->division }}</td>
                     <td>
                         <form action="{{ route('employee-edit', $contact) }}" method="get">@csrf <button
-                                type="submit">Update</button> </form>
+                                type="submit">{{ __('Update') }}</button> </form>
                         <form action="{{ route('employee-delete', $contact) }}" method="post">
                             @method('delete')
                             @csrf
-                            <button type="submit">Delete</button>
+                            <button type="submit">{{ __('Delete') }}</button>
                         </form>
                     </td>
                 </tr>
@@ -61,10 +73,10 @@
         </tbody>
     </table>
     {{-- Method yang bisa digunakan untuk pagination --}}
-    <p>Current Page : {{ $employees->currentPage() }}</p>
-    <p>Total Data : {{ $employees->total() }}</p>
-    <p>Data per Page: {{ $employees->perPage() }}</p>
-    <a href="{{ route('employee-create') }}">Create new employee</a>
+    <p>{{ __('Current Page') }} : {{ $employees->currentPage() }}</p>
+    <p>{{ __('Total Data') }} : {{ $employees->total() }}</p>
+    <p>{{ __('Data per Page') }}: {{ $employees->perPage() }}</p>
+    <a href="{{ route('employee-create') }}">{{ __('Create new employee') }}</a>
 
     {{ $employees->links('pagination::simple-tailwind') }}
 

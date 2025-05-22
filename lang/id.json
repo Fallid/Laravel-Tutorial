@@ -1,0 +1,21 @@
+{
+    "Language" : "Bahasa",
+    "English" : "Inggris",
+    "Indonesian" : "Indonesia",
+    "Your Role" : "Peran Kamu",
+    "Logout" : "Keluar",
+    "Register": "Daftar",
+    "Login" : "Masuk",
+    "List of Employee": "Daftar Pekerja",
+    "Name" : "Nama",
+    "Email" : "Surel",
+    "Division" : "Divisi",
+    "Action" : "Aksi",
+    "Update" : "Sunting",
+    "Delete" : "Hapus",
+    "Current Page" : "Halaman Sekarang",
+    "Total Data" : "Data Keseluruhan",
+    "Data per Page" : "Data tiap halaman",
+    "Create new employee" : "Buat pekerja baru",
+    "Welcome" : "Selamat Datang"
+}
