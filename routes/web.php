@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\PictureController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,9 @@ Route::middleware(['role:admin,member'])->group(function () {
 
     Route::get('update/password', [ResetPasswordController::class, 'edit'])->name('user_update_password');
     Route::patch('update/password/store', [ResetPasswordController::class, 'update'])->name('user_store_password');
+
+    Route::get('picture/create', [PictureController::class, 'create'])->name('picture.create');
+    Route::post('picture/create', [PictureController::class, 'store'])->name('picture.store');
 });
 
 Route::middleware(['role:admin'])->group(function () {
