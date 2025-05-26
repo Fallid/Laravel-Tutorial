@@ -31,6 +31,8 @@ Route::middleware(['role:admin,member'])->group(function () {
 
     Route::get('picture/create', [PictureController::class, 'create'])->name('picture.create');
     Route::post('picture/create', [PictureController::class, 'store'])->name('picture.store');
+    Route::get('picture/detail/{picture}', [PictureController::class, 'show'])->name('picture.detail');
+    Route::delete('picture/detail/{picture}', [PictureController::class, 'destroy'])->name('picture.delete');
 });
 
 Route::middleware(['role:admin'])->group(function () {

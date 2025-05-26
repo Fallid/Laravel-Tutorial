@@ -35,9 +35,9 @@ class PictureController extends Controller
 
         /** gunakan original Name untuk mendapatkan nama dan extension file
          * atau $file->getClientOriginalExtension(); untuk mendapatkan extension filenya saja */
-        $path = time() . "_" .$name . "_" . $file->getClientOriginalName();
+        $path = time() . "_" . $name . "_" . $file->getClientOriginalName();
 
-        Storage::disk('local')->put('public/' . $path, file_get_contents($file));
+        Storage::disk('public')->put('' . $path, file_get_contents($file));
 
         Picture::create([
             'name' => $name,
@@ -50,9 +50,10 @@ class PictureController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Picture $picture)
     {
-        //
+        $url = Storage::url($picture->path);
+        return view('storage.picture_detail', compact('url', 'picture'));
     }
 
     /**
@@ -74,8 +75,23 @@ class PictureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Picture $picture)
     {
-        //
+        $publicDisk = Storage::disk('public');
+        $privateDisk = Storage::disk('local');
+        $filePath = $picture->path;
+        $fileName = basename($filePath);
+        $filePrivatePath = 'trash/'.$fileName ;
+        $pictureId = Picture::findOrFail($picture->id);
+
+        $fileContent = Storage::disk('public')->get($filePath);
+        $privateDisk->put($filePrivatePath, $fileContent);
+        $publicDisk->delete($filePath);
+
+        $pictureId->update([
+            "path"=>$filePrivatePath
+        ]);
+        $pictureId->delete();
+        return Redirect::route('picture.create');
     }
 }
